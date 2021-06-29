@@ -34,14 +34,18 @@ const Expenses = (props) => {
         />
 
         {/* Map every expense items into an ExpenseItem */}
-        {props.items.map((expense, index) => (
-          <ExpenseItem
-            key={expense.id} // It's important to always add a key when you're mapping out a list of items
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        {props.items
+          .filter(
+            (expense) => expense.date.getFullYear().toString() === enteredYear
+          )
+          .map((expense) => (
+            <ExpenseItem
+              key={expense.id} // It's important to always add a key when you're mapping out a list of items
+              title={expense.title}
+              amount={expense.amount}
+              date={expense.date}
+            />
+          ))}
 
         {/* Hard-coding the values in */}
         {/* <ExpenseItem
