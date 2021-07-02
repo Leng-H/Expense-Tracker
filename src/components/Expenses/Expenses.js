@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 
-import ExpenseItem from "./ExpenesItem";
 import Card from "../UI/Card";
 import "./Expenses.css";
 import ExpenseFilter from "./ExpenseFilter";
 import "./ExpenseFilter.css";
+import ExpensesList from "./ExpensesList";
 
 const Expenses = (props) => {
   const [enteredYear, setEnteredYear] = useState("2019");
 
   const yearChangeHandler = (year) => {
-    // console.log("Expenses.js");
-    // console.log(year);
     setEnteredYear(year);
   };
+
+  const filteredExpenses = props.items.filter((expense) => {
+    return expense.date.getFullYear().toString === enteredYear;
+  });
 
   return (
     <div>
@@ -32,42 +34,8 @@ const Expenses = (props) => {
           selected={enteredYear}
           onFilterExpense={yearChangeHandler}
         />
-
-        {/* Map every expense items into an ExpenseItem */}
-        {props.items
-          .filter(
-            (expense) => expense.date.getFullYear().toString() === enteredYear
-          )
-          .map((expense) => (
-            <ExpenseItem
-              key={expense.id} // It's important to always add a key when you're mapping out a list of items
-              title={expense.title}
-              amount={expense.amount}
-              date={expense.date}
-            />
-          ))}
-
-        {/* Hard-coding the values in */}
-        {/* <ExpenseItem
-          title={props.items[0].title}
-          amount={props.items[0].amount}
-          date={props.items[0].date}
-        />
-        <ExpenseItem
-          title={props.items[1].title}
-          amount={props.items[1].amount}
-          date={props.items[1].date}
-        />
-        <ExpenseItem
-          title={props.items[2].title}
-          amount={props.items[2].amount}
-          date={props.items[2].date}
-        />
-        <ExpenseItem
-          title={props.items[3].title}
-          amount={props.items[3].amount}
-          date={props.items[3].date}
-        /> */}
+        {/* Outputting conditional content  */}
+        <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
   );
