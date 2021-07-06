@@ -45,7 +45,7 @@ const ExpenseForm = (props) => {
     event.preventDefault();
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
@@ -54,10 +54,6 @@ const ExpenseForm = (props) => {
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
-  };
-
-  const cancelHandler = (event) => {
-    console.log("Cancel button is clicked!");
   };
 
   return (
